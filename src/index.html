@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="output.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="bg-cyan-600 py-4">
+            <img src="images/Logo.png" alt="">
+        </div>
+    </header>
+
+    <section> 
+        <div class="flex flex-col justify-center items-center h-screen ">
+            <!--Ventana agregar nueva palabra -->
+            <div id="ventana1" class="hidden">
+                <textarea id="palabra" class="resize-none w-full font-mono text-2xl text-dark-blue placeholder-dark-blue" required placeholder="Ingrese una palabra" cols="80" rows="14"></textarea>
+            </div>
+            
+            <div class= "flex flex-col text-center">
+
+                <div id="mensaje" class="hidden">
+                    <div  class="flex flex-row">
+                        <svg class="h-6 w-6 text-gray-400"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="12" cy="12" r="9" />  <line x1="12" y1="8" x2="12" y2="12" />  <line x1="12" y1="16" x2="12.01" y2="16" /></svg>
+                        <h2>Máx. de 8 letras</h2>
+                    </div>
+                </div>
+                
+                <button id="iniciar" class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-3xl text-sm w-80 py-8 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 ">Iniciar juego</button>
+                <button id="agregar" onclick="agregarPalabra('ventana1')" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-3xl text-sm w-80 h-12 mb-2 mt-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Agregar nueva palabra</button>
+                <br>
+
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                    <!-- Botónes oculto que se mostrará después de hacer clic en el botón agregar -->
+                    <button id="guardar" onclick="guardarPalabra()" style="display: none;" class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-3xl text-sm w-80 h-12 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 ">Guardar y empezar</button>
+                    <button id="cancelar" style="display: none;" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-3xl text-sm w-80 h-12 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancelar</button>
+
+                    <button id="nuevo" style="display: none;" class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-3xl text-sm w-80 h-12 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 ">Nuevo juego</button>
+                    <button id="desistir" style="display: none;" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-3xl text-sm w-80 h-12 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Desistir</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="logica.js"></script>
+
+</body>
+</html>
