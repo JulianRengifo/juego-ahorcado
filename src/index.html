@@ -17,7 +17,26 @@
         <div class="flex flex-col justify-center items-center h-screen ">
             <!--Ventana agregar nueva palabra -->
             <div id="ventana1" class="hidden">
-                <textarea id="palabra" class="resize-none w-full font-mono text-2xl text-dark-blue placeholder-dark-blue" required placeholder="Ingrese una palabra" cols="80" rows="14"></textarea>
+                <textarea id="palabra" class="resize-none w-full font-mono text-2xl text-dark-blue placeholder-dark-blue" required placeholder="Ingrese una palabra" cols="80" rows="16"></textarea>
+            </div>
+
+            <div id="hombre-ahorcado" class="w-64 text-center mb-8 hidden">
+                <img id="hombre"  alt="" class="max-w-full max-h-full inline-block"> <!---src="images/estado1.png"---->
+            </div>
+
+            <div id="adivinado" class="text-center text-3xl text-dark-blue hidden">
+                <!--- <span class="inline-block w-14 h-16 align-middle border-b-4 border-solid border-dark-blue ml-1">A</span>
+                <span class="inline-block w-14 h-16 align-middle border-b-4 border-solid border-dark-blue ml-1">L</span>
+                <span class="inline-block w-14 h-16 align-middle border-b-4 border-solid border-dark-blue ml-1"></span>
+                <span class="inline-block w-14 h-16 align-middle border-b-4 border-solid border-dark-blue ml-1"></span>
+                <span class="inline-block w-14 h-16 align-middle border-b-4 border-solid border-dark-blue ml-1">A</span> -->
+            </div>
+
+            <div id="errado" class="text-center mt-4 hidden">
+                <!--<span class="ml-4">B</span>
+                <span class="ml-4">J</span>
+                <span class="ml-4">K</span>
+                <span class="ml-4">C</span> --->
             </div>
             
             <div class= "flex flex-col text-center">
@@ -30,13 +49,13 @@
                 </div>
                 
                 <button id="iniciar" class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-3xl text-sm w-80 py-8 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 ">Iniciar juego</button>
-                <button id="agregar" onclick="agregarPalabra('ventana1')" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-3xl text-sm w-80 h-12 mb-2 mt-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Agregar nueva palabra</button>
+                <button id="agregar" onclick="agregarPalabra()" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-3xl text-sm w-80 h-12 mb-2 mt-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Agregar nueva palabra</button>
                 <br>
 
                 <div class="flex flex-col md:flex-row items-center justify-center gap-4">
                     <!-- Botónes oculto que se mostrará después de hacer clic en el botón agregar -->
                     <button id="guardar" onclick="guardarPalabra()" style="display: none;" class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-3xl text-sm w-80 h-12 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 ">Guardar y empezar</button>
-                    <button id="cancelar" style="display: none;" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-3xl text-sm w-80 h-12 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancelar</button>
+                    <button id="cancelar" onclick="cancelar()" style="display: none;" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-3xl text-sm w-80 h-12 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancelar</button>
 
                     <button id="nuevo" style="display: none;" class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-3xl text-sm w-80 h-12 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 ">Nuevo juego</button>
                     <button id="desistir" style="display: none;" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-3xl text-sm w-80 h-12 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Desistir</button>
