@@ -53,7 +53,7 @@ function cancelar() {
 
     var juego = {
         palabra: "ALURA",
-        estado: 1,
+        estado: 7,
         adivinado:["A","L"],
         errado: ["B","J","K","C"]
     }
@@ -68,12 +68,19 @@ function cancelar() {
         //Actualizar la imagen del muñeco
         var $elem
         $elem = $html.hombre
-        $elem.src = "images/estado" + juego.estado + ".png";
+
+        var estado = juego.estado
+        if (estado === 8){        // Recicla la imagen de un estado anterior 
+            estado = juego.previo
+        }
+
+        $elem.src = "images/estado" + estado + ".png";
 
         // Creamos las letras adivinadas
         var palabra = juego.palabra       // Obtiene la palabra del objeto 'juego'
         var adivinado = juego.adivinado
         $elem = $html.adivinado
+        $elem.innerHTML = ""       // Borramos los elementos anteriores
         for (let letra of palabra) {   // Itera sobre cada letra de la palabra
             let $span = document.createElement("span")  // Crea un nuevo elemento <span> para representar la letra
             let $txt = document.createTextNode("")      // Crea un nodo de texto vacío para contener la letra
@@ -90,6 +97,7 @@ function cancelar() {
         // Creamos las letras erradas
         var errado = juego.errado
         $elem = $html.errado
+        $elem.innerHTML = ""       // Borramos los elementos anteriores
         for (let letra of errado) {    // Recorremos las letras que se han errado
             let $span = document.createElement("span")
             let $txt = document.createTextNode(letra)
@@ -99,7 +107,59 @@ function cancelar() {
         }
     }
 
-    console.log(juego);
-    dibujar(juego);
+    function adivinar (juego, letra){
+        var estado = juego.estado
+        // si se gana o pierde, termina el juego
+        if ( estado === 1 || estado === 8){
+            return
+        }
 
+        var adivinado = juego.adivinado
+        var errado = juego.errado
+        // si se a adivinado o errado la letra 
+        if(adivinado.indexOf(letra) >= 0 || errado.indexOf(letra) >= 0){
+            return
+        }
+
+        var palabra = juego.palabra
+        // Si la letra ingresada hace parte de la pabra
+        if(palabra.indexOf(letra) >= 0){
+            let ganado = true
+            // Revisa si se llega al estado ganado
+            for (let verificarletra  of palabra){
+                if(adivinado.indexOf(verificarletra) < 0 && verificarletra != letra ) {
+                    ganado = false
+                    juego.previo = juego.estado   // muestra el estado antes de ganar
+                    break
+                }
+            }
+            // Si ya se a ganado. se debe indicar
+            if(ganado){
+                juego.estado = 8
+            }
+            // Se agrega la letra a la palbra que esta conforma
+            adivinado.push(letra)
+        }else{
+        // si la letra ingreada no hace parte de la palabra el muñeco cammbiara de estado
+            juego.estado--
+            // Agregamos la letra errada a la lista de las letras erradas
+            errado.push(letra)
+        }
+    }
+
+    //captura las pulsaciones de teclas en la ventana del navegador, convierte las letras a mayúscula y luego intenta
+    // adivinar la letra presionada utilizando una función llamada adivinar. Después de intentar adivinar la letra, actualiza la representación visual del juego llamando a la función dibujar.
+
+    window.onkeypress = function adivinarletra(e){ //se ejecutará cuando se presione una tecla. Toma un parámetro e
+        var letra = e.key  //Obtiene la tecla presionada del objeto de evento e y la guarda en la variable letra.
+        letra = letra.toUpperCase() //Convierte la tecla presionada a mayúscula
+        if(/[^A-ZÑ]/.test(letra)){  // Verifica que no se ingrese un caracter erroneo
+            return
+        }
+        adivinar(juego, letra)
+        dibujar(juego) // Al cambiar el estado por la letras ingresadas se debe volver a dibujar el muñeco
+    }
+
+    dibujar(juego)
+    
 }());

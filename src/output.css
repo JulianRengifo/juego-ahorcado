@@ -568,10 +568,6 @@ video {
   margin-top: 1rem;
 }
 
-.mr-1 {
-  margin-right: 0.25rem;
-}
-
 .inline-block {
   display: inline-block;
 }
@@ -656,10 +652,6 @@ video {
   border-radius: 1.5rem;
 }
 
-.rounded {
-  border-radius: 0.25rem;
-}
-
 .border {
   border-width: 1px;
 }
@@ -705,16 +697,6 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
 }
 
 .text-center {
