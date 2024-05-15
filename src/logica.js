@@ -105,7 +105,7 @@ function cancelar() {
             let $txt = document.createTextNode("")      // Crea un nodo de texto vacío para contener la letra
             
             // Verifica si la letra ha sido adivinada
-            if (adivinado.indexOf(letra) >= 0) {   // Si la letra está en el array de letras adivinadas
+            if (adivinado.has(letra)) {   // Si la letra está en el array de letras adivinadas
                 $txt.nodeValue = letra            // Establece el texto del nodo de texto como la letra adivinada
             }
             $span.classList.add("inline-block", "w-14", "h-16", "align-middle", "border-b-4", "border-solid", "border-dark-blue", "ml-1")
@@ -136,33 +136,28 @@ function cancelar() {
         var adivinado = juego.adivinado
         var errado = juego.errado
         // si se a adivinado o errado la letra 
-        if(adivinado.indexOf(letra) >= 0 || errado.indexOf(letra) >= 0){
+        if(adivinado.has(letra) || errado.has(letra)){ // has nos indica si pertenece al conjunto adivinado o errado
             return
         }
 
         var palabra = juego.palabra
+        var letras = juego.letras
         // Si la letra ingresada hace parte de la pabra
-        if(palabra.indexOf(letra) >= 0){
-            let ganado = true
-            // Revisa si se llega al estado ganado
-            for (let verificarletra  of palabra){
-                if(adivinado.indexOf(verificarletra) < 0 && verificarletra != letra ) {
-                    ganado = false
-                    juego.previo = juego.estado   // muestra el estado antes de ganar
-                    break
-                }
-            }
+        if(letras.has(letra)){
+            adivinado.add(letra)  // Agregamos a la lista de letras adivinadas
+            juego.restante--      //Actualizamos las letras restantes
+
+
             // Si ya se a ganado. se debe indicar
-            if(ganado){
+            if(juego.restante === 0){
+                juego.previo = juego.estado   // muestra el estado antes de ganar
                 juego.estado = 8
             }
-            // Se agrega la letra a la palbra que esta conforma
-            adivinado.push(letra)
         }else{
         // si la letra ingreada no hace parte de la palabra el muñeco cammbiara de estado
             juego.estado--
             // Agregamos la letra errada a la lista de las letras erradas
-            errado.push(letra)
+            errado.add(letra)
         }
     }
 
@@ -178,10 +173,14 @@ function cancelar() {
         adivinar(juego, letra)
         var estado = juego.estado
         if(estado === 8){
-            alert("Felicidades, ganaste")
+            setTimeout(function(){  // Esta función vacía no realiza ninguna operación específica, simplemente se ejecuta después de que haya transcurrido el tiempo especificado por setTimeout
+                alert("Felicidades")
+            }, 500)   // Espera medio segundo antes de mostrar la alerta
         }else if(estado ===1){
             let palabra = juego.palabra
-            alert("Lo siento, perdiste... la palabra era: " + palabra)
+            setTimeout(function() {
+                alert("Lo siento, perdiste... la palabra era: " + palabra);
+            }, 500);
         }
         dibujar(juego) // Al cambiar el estado por la letras ingresadas se debe volver a dibujar el muñeco
     }
@@ -191,8 +190,17 @@ function cancelar() {
         juego = {}
         juego.palabra = palabra
         juego.estado = 7
-        juego.adivinado = []
-        juego.errado = []
+        juego.adivinado = new Set()
+        juego.errado = new Set()
+
+        // Devuelve las letras que contiene la palabra
+        var letras = new Set()
+        for(let letra of palabra){
+            letras.add(letra)
+        }
+        juego.letras = letras   // cuantas letras hay
+        juego.restante = letras.size
+
         dibujar(juego)
         console.log(juego)
     }
@@ -201,6 +209,14 @@ function cancelar() {
         var index = Math.trunc(Math.random() * palabras.length);
         return palabras[index];
     }
+
+    /* function alertaGanado(){
+        alert("Felicidades, ganaste")
+    }
+
+    function alertaPerdido(palabra){
+        alert("Lo siento, perdiste... la palabra era: " + palabra)
+    } */
 
     nuevoJuego()
     
