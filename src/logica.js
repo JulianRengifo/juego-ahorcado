@@ -1,4 +1,16 @@
 
+function iniciar(){
+
+    document.getElementById('agregar').style.display = 'none';
+    document.getElementById('iniciar').style.display = 'none';
+
+    document.getElementById('nuevo').style.display = "inline-block";
+    document.getElementById('desistir').style.display = "inline-block";
+    document.getElementById('hombre').style.display = "inline-block";
+    document.getElementById('hombre-ahorcado').style.display = "inline-block";
+    document.getElementById('adivinado').style.display = "inline-block";
+    document.getElementById('errado').style.display = "inline-block";
+}
 
 function agregarPalabra() {
     
@@ -51,12 +63,19 @@ function cancelar() {
 (function(){
     'use strict'
 
-    var juego = {
+    var palabras = [
+        "ALURA", "ORACLE", "FRONTEND", "BACKEND", "PROGRAMAR", "CODIGO", "ERROR", "DUBSTEP"
+    ]
+
+    // variable para almacenar la configuracion actual
+    var juego = null
+
+    /*var juego = {      // procemidimiento antes de ingresar las palabras a adivinar
         palabra: "ALURA",
         estado: 7,
         adivinado:["A","L"],
         errado: ["B","J","K","C"]
-    }
+    }*/
 
     var $html ={
         hombre: document.getElementById("hombre"),
@@ -157,9 +176,32 @@ function cancelar() {
             return
         }
         adivinar(juego, letra)
+        var estado = juego.estado
+        if(estado === 8){
+            alert("Felicidades, ganaste")
+        }else if(estado ===1){
+            let palabra = juego.palabra
+            alert("Lo siento, perdiste... la palabra era: " + palabra)
+        }
         dibujar(juego) // Al cambiar el estado por la letras ingresadas se debe volver a dibujar el muñeco
     }
 
-    dibujar(juego)
+    window.nuevoJuego = function nuevoJuego(){
+        var palabra = palabraAleatoria()
+        juego = {}
+        juego.palabra = palabra
+        juego.estado = 7
+        juego.adivinado = []
+        juego.errado = []
+        dibujar(juego)
+        console.log(juego)
+    }
+
+    function palabraAleatoria(){
+        var index = Math.trunc(Math.random() * palabras.length);
+        return palabras[index];
+    }
+
+    nuevoJuego()
     
 }());
