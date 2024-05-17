@@ -1,81 +1,10 @@
-
-function iniciar(){
-
-    document.getElementById('agregar').style.display = 'none';
-    document.getElementById('iniciar').style.display = 'none';
-
-    document.getElementById('nuevo').style.display = "inline-block";
-    document.getElementById('desistir').style.display = "inline-block";
-    document.getElementById('hombre').style.display = "inline-block";
-    document.getElementById('hombre-ahorcado').style.display = "inline-block";
-    document.getElementById('adivinado').style.display = "inline-block";
-    document.getElementById('errado').style.display = "inline-block";
-}
-
-function agregarPalabra() {
     
-    // Mostrar la ventana deseada
-    
-
-     // Ocultar el botón principal
-    document.getElementById('agregar').style.display = 'none';
-    document.getElementById('iniciar').style.display = 'none';
-    
-     // Mostrar el nuevo botón
-    document.getElementById('ventana1').style.display = "inline-block";
-    document.getElementById('guardar').style.display = 'inline-block'
-    document.getElementById('cancelar').style.display = 'inline-block';
-    document.getElementById('mensaje').style.display = 'inline-block';
-}
-
-function guardarPalabra() {
-    // Obtener el valor del textarea
-    var palabra = document.getElementById("palabra").value;
-
-    // Hacer algo con la palabra, como mostrarla en la consola
-    console.log("Palabra guardada:", palabra);
-
-    document.getElementById('guardar').style.display = "none";
-    document.getElementById('cancelar').style.display = "none";
-    document.getElementById('ventana1').style.display = "none";
-    document.getElementById('mensaje').style.display= "none";
-
-    document.getElementById('nuevo').style.display = "inline-block";
-    document.getElementById('desistir').style.display = "inline-block";
-    document.getElementById('hombre').style.display = "inline-block";
-    document.getElementById('hombre-ahorcado').style.display = "inline-block";
-    document.getElementById('adivinado').style.display = "inline-block";
-    document.getElementById('errado').style.display = "inline-block";
-}
-
-function cancelar() {
-
-    document.getElementById('guardar').style.display = "none";
-    document.getElementById('cancelar').style.display = "none";
-    document.getElementById('ventana1').style.display = "none";
-    document.getElementById('mensaje').style.display = "none";
-
-    document.getElementById('iniciar').style.display = "inline-block";
-    document.getElementById('agregar').style.display = "inline-block";
-
-}
-
-(function(){
-    'use strict'
-
     var palabras = [
-        "ALURA", "ORACLE", "FRONTEND", "BACKEND", "PROGRAMAR", "CODIGO", "ERROR", "DUBSTEP"
+        "ALURA", "ORACLE", "FRONTEND", "BACKEND", "JAVA", "CODIGO", "ERROR", "DUBSTEP"
     ]
 
     // variable para almacenar la configuracion actual
     var juego = null
-
-    /*var juego = {      // procemidimiento antes de ingresar las palabras a adivinar
-        palabra: "ALURA",
-        estado: 7,
-        adivinado:["A","L"],
-        errado: ["B","J","K","C"]
-    }*/
 
     var $html ={
         hombre: document.getElementById("hombre"),
@@ -154,13 +83,12 @@ function cancelar() {
                 juego.estado = 8
             }
         }else{
-        // si la letra ingreada no hace parte de la palabra el muñeco cammbiara de estado
+        // si la letra ingreSada no hace parte de la palabra el muñeco cammbiara de estado
             juego.estado--
             // Agregamos la letra errada a la lista de las letras erradas
             errado.add(letra)
         }
     }
-
     //captura las pulsaciones de teclas en la ventana del navegador, convierte las letras a mayúscula y luego intenta
     // adivinar la letra presionada utilizando una función llamada adivinar. Después de intentar adivinar la letra, actualiza la representación visual del juego llamando a la función dibujar.
 
@@ -174,7 +102,7 @@ function cancelar() {
         var estado = juego.estado
         if(estado === 8){
             setTimeout(function(){  // Esta función vacía no realiza ninguna operación específica, simplemente se ejecuta después de que haya transcurrido el tiempo especificado por setTimeout
-                alert("Felicidades")
+                alert("Felicidades ganaste")
             }, 500)   // Espera medio segundo antes de mostrar la alerta
         }else if(estado ===1){
             let palabra = juego.palabra
@@ -210,14 +138,96 @@ function cancelar() {
         return palabras[index];
     }
 
-    /* function alertaGanado(){
-        alert("Felicidades, ganaste")
-    }
-
-    function alertaPerdido(palabra){
-        alert("Lo siento, perdiste... la palabra era: " + palabra)
-    } */
-
     nuevoJuego()
+
+    function iniciar(){
+
+    document.getElementById('agregar').style.display = 'none';
+    document.getElementById('iniciar').style.display = 'none';
+
+    document.getElementById('nuevo').style.display = "inline-block";
+    document.getElementById('desistir').style.display = "inline-block";
+    document.getElementById('hombre').style.display = "inline-block";
+    document.getElementById('hombre-ahorcado').style.display = "inline-block";
+    document.getElementById('adivinado').style.display = "inline-block";
+    document.getElementById('errado').style.display = "inline-block"
+}
+
+function desistir(){
+    document.getElementById('nuevo').style.display = "none";
+    document.getElementById('desistir').style.display = "none";
+    document.getElementById('hombre').style.display = "none";
+    document.getElementById('hombre-ahorcado').style.display = "none";
+    document.getElementById('adivinado').style.display = "none";
+    document.getElementById('errado').style.display = "none"
+
+    document.getElementById('agregar').style.display = 'inline-block';
+    document.getElementById('iniciar').style.display = 'inline-block';
+}
+
+function agregarPalabra() {
+
+
+     // Ocultar el botón principal
+    document.getElementById('agregar').style.display = 'none';
+    document.getElementById('iniciar').style.display = 'none';
     
-}());
+     // Mostrar el nuevo botón
+    document.getElementById('ventana1').style.display = "inline-block";
+    document.getElementById('guardar').style.display = 'inline-block'
+    document.getElementById('cancelar').style.display = 'inline-block';
+    document.getElementById('mensaje').style.display = 'inline-block';
+}
+
+function guardarPalabra() {
+    
+    // Obtener el valor del textarea
+    var palabraGuardada = document.getElementById("ingresePalabra").value;
+
+    // Verificar que la palabra cumpla con ciertas condiciones (mayúscula y de 8 caracteres)
+    if (palabraGuardada.length > 8 || palabraGuardada !== palabraGuardada.toUpperCase()) {
+        alert("Por favor, ingresa una palabra de 8 o menos caracteres en mayúsculas.");
+        return; // Detener la ejecución si la palabra no cumple con las condiciones
+    };
+
+    document.getElementById('guardar').style.display = "none";
+    document.getElementById('cancelar').style.display = "none";
+    document.getElementById('ventana1').style.display = "none";
+    document.getElementById('mensaje').style.display= "none";
+
+    document.getElementById('nuevo').style.display = "inline-block";
+    document.getElementById('desistir').style.display = "inline-block";
+    document.getElementById('hombre').style.display = "inline-block";
+    document.getElementById('hombre-ahorcado').style.display = "inline-block";
+    document.getElementById('adivinado').style.display = "inline-block";
+    document.getElementById('errado').style.display = "inline-block";
+
+    var letras = new Set()
+        for(let letra of palabraGuardada){
+            letras.add(letra)
+        }
+    
+    juego = {
+        palabra: palabraGuardada,
+        estado: 7, // Estado inicial del juego
+        adivinado: new Set(), // Conjunto para almacenar las letras adivinadas
+        errado: new Set(), // Conjunto para almacenar las letras erradas
+        letras: letras, // Conjunto para almacenar todas las letras de la palabra
+        restante: letras.size // Número de letras restantes por adivinar
+    };
+
+    dibujar(juego);
+    console.log("Palabra guardada:", palabraGuardada);
+}
+
+function cancelar() {
+
+    document.getElementById('guardar').style.display = "none";
+    document.getElementById('cancelar').style.display = "none";
+    document.getElementById('ventana1').style.display = "none";
+    document.getElementById('mensaje').style.display = "none";
+
+    document.getElementById('iniciar').style.display = "inline-block";
+    document.getElementById('agregar').style.display = "inline-block";
+}
+
